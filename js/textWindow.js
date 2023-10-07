@@ -43,7 +43,7 @@ function hide() {
   }
 
 window.onload = function() {
-    show();
+    hide();
 }//这里选择触发方式，默认是加载完成出现弹窗
 //要让弹窗出现调用show()，隐藏调用hide()即可
 popup.insertBefore(close, popup.firstChild);
