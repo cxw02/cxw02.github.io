@@ -7,11 +7,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cxw02.github.io/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg">
 <meta property="article:published_time" content="2023-09-27T04:06:54.000Z">
-<meta property="article:modified_time" content="2023-09-27T08:33:56.192Z">
+<meta property="article:modified_time" content="2023-10-10T06:19:34.446Z">
 <meta property="article:author" content="CHENXW">
 <meta property="article:tag" content="blender">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cxw02.github.io/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://cxw02.github.io/2023/09/27/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/pluginsSrc/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="https://cxw02.github.io/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://cxw02.github.io/2023/09/27/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/index.html"><link rel="preconnect"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: undefined,
@@ -37,12 +37,10 @@
   },
   copyright: undefined,
   lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
-  source: {
-    justifiedGallery: {
-      js: '/pluginsSrc/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: '/pluginsSrc/flickr-justified-gallery/dist/fjGallery.css'
-    }
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
   islazyload: false,
@@ -58,85 +56,78 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-09-27 16:33:56'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+  postUpdate: '2023-10-10 14:19:34'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
         }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      win.activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
@@ -158,7 +149,7 @@
               const isNight = hour <= 8 || hour >= 22
               isNight ? activateDarkMode() : activateLightMode()
             }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
               if (saveToLocal.get('theme') === undefined) {
                 e.matches ? activateDarkMode() : activateLightMode()
               }
@@ -175,42 +166,32 @@
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/textWindow.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
-    }
-  }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/textWindow.css"><meta name="generator" content="Hexo 6.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
 
-  preloader.initLoading()
-  window.addEventListener('load',() => { preloader.endLoading() })
-
-  if (false) {
-    document.addEventListener('pjax:send', () => { preloader.initLoading() })
-    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-  }
-})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="CHENXW"><span class="site-name">CHENXW</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">blender基础命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-27T04:06:54.000Z" title="发表于 2023-09-27 12:06:54">2023-09-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-27T08:33:56.192Z" title="更新于 2023-09-27 16:33:56">2023-09-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="blender基础命令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="/pluginsSrc/pace-js/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="CHENXW"><span class="site-name">CHENXW</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">blender基础命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-27T04:06:54.000Z" title="发表于 2023-09-27 12:06:54">2023-09-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-10T06:19:34.446Z" title="更新于 2023-10-10 14:19:34">2023-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="blender基础命令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
   <script id="hbeData" type="hbeData" data-hmacdigest="439ad76a9aaf602e5abcb291e22ece0beac3b51c51e5e53af0342d14f870e3b5">4630436162ade97ba2718b7d0c4b3b63cb3a3f659c5ca08b4bca0f5845928186576d9b4771994e278639aecf22eb08a39b74e835d3896a9d3b93dfca078e82d1c613f8655056eb02a2cb1d45cee66b9e171637bec991bdeb4cd823729345107f94b07c55d1f41e5ec421977c238b4db0d2a71a5a79f84b56fb061478d87e859e61685999fc308af8888c1557c52003a152e8f55ccb30c1bb6aabec1d7c32c64e9cde38afa36ce1c822def02a4bfc7bec2f7bb1cd7f2e415ea554d379a6daa0f74f789e5d282a35c3019704ba0108343be554de9cb454f719a47ee3aa1a0544c5d49e92c16070b6be50e9fa9b0a47937bb8428ac7b1e722ae9d9e3acd5335ab8f8c117bb5bd95b29dd7bbffe843b4ac7917b0039092a74f3246dc0dd86d1e835499ec9e70c665b80131c553f3fcde1d3623fa1b89f85a2b1795b52e0429e54a23c40c55a146dbcf32278cd39e0625c5dfe5a4a7fa34579464edbfd79d2819c0b0b517ab0bf14f9b52868bcba19e5f8b7f3ca13325e153fed8c72db692fde4ce55b85ae678cc52b84fee8ac9fa727035b6946e534973ff9c29f9d38ba136ceed802db9095b8ccc5e9ae22729304ae2a00c889d6aeac0b86e65e73cfd687523ed2b13452e3eed99ac22793217ff3b8fd214ae93d937b1606505b1fed415a266b8cad63a52b16a66bd1ce4cbeb4f2e00a618e63176cc9a8ed6ca453a96233ee0bd7361cf6a730f1f7ac7319ecf802f4acfe4e24581a9e5b7e2669247714cf69f2b3b2f146c4c33fd25715e6a59faa8b0ad3d5a2c821e8c07003ca3f0967b561c30a78252bdbdde97c02b30d489ae83d32d0f8378fa3aec5cbaf9eed060641e37bfda76b76eb2bbf30dd402d17b9c72d3b2b7e422efb8bfd6f84e6d1116ebf6b4afb6337ef5211998ce9cd49f8a6f78de083811304308fa3d032cc4450942b37ea80d5ca258d15fcc5c353dba2bd011bf7a160f92bfdf78871b35ee99fe626c6d51c0947b42c334098dd765599edb57abbcca14bf8087fca921b33e4f8e60aa0e635e2585f9bdc7b9a024904e844b8ddb4c960311c361306fc788430a211789deab22fb970b02216d7b6c79cca8c9937f5b823c8435c16799580e3ca2df4f0bd7ed18867cf107ff33c1694820fc7c9e780f583503c2aa94ea9d482c28d292d98ec35093aa25336e90f9cb8338fa1645f7d4027f32fe089e4ac4555aaad3dae2c511c68223d6a5032be245e1b11b1ef3b0f8a4c60ea29112b1b929af993439271a4408aa9453767dd759947a8e1a81a004339553dcf9060aae1ca53908487110fff443de53d50114e82c2321cfd8ff6d1717e8713e773de429560deb4c053cbccd493e622773a0d9c381c26d69795bdaa02e16b3616d54d317cba257f032534eff391585dae39d9abddb70e5630256bff3ac9ef9a638d52637e03799413e7a7c1db34a54b87fda432d15dd7767736b93c37e1a874633479a51338d54164e368045f1940bec3f9edffbd00c1c8afdda23bcc0b720580e4e461d0a8c0470313caa28518fccafd579a337f34575af4fae22262af213f61140d8f259b199416b5c2b6f5b9235ab819f3d25d6e1f36c362b86daa66f5d4a56ff48858dcac993ea3802dcbddb42b0be6f98c56650e0b97850a24cb6ac25cc434abd140d63c2092f0d7b7f32e242a880494cafde3cad8932736c4adabf91972a9ded3f217e99767f346a1f442c122b9d1b11d43565e511bb309e8dced3a6c22d1e809819a13aca8b63a4665ec545e4851115d772756ecf1949328deda9c7802925fef50fa7a849a7bc95181f240bc8732150d0af78c1a1f02d197c33d897bf9993b40fb825e3bea4ac79b79b8c4be7ae0df92c48811de407abfcbdb635acaf0ebcc97b321d2cef0598934fabe34ed1e6562fed1ae9623e8aa24bf9613eb654009f26d3cd7138cd73e345cb455cfcbcde04a1e8bff103623e145d8049841c46d76b1e644b74fefa3ad2a217b0794235ee2144c6011a29b41dc21855c230b0192789b65488f3ad8263498489fdd08c02eee3c13c4fc901462a80337a6c347c5f610f492c6454ba25db773862a405b6931633ae84ae54b5d576ad4a3f715b7c7803117b055b05936cb46842347b6e8dfc47eace8b3d08c042f29b6f802a413f2c729a5ab39dd512ad638f64edd3855873ff83ad8b14cc599dc75d43de0a283b46395fb30737d0131a64a0e28372f9057ad191a477a9d5a5d8870072c4c1d9384bf5949ae1d7299f5f0794d72cadb848b97cfb81281f0660cdfd06dad3e2608b8627c7f22c7912c1ebbd5975f43229a18510a48abafb7aaac03c31ab182cc04c46794dfd9fede9e6f972fd4234eef2d202eb2dbe8308f37e4a3737ec24f52e9b9765c0b471c9d6a0e5c41e02f49521be22377115f42f2cbbbd44fe734011ea20b13143116c9c79e748ee3b991ba4e04370ed1e39a8158d3dbc7ecb922266de76c7fa7f8834c38b717ea4142a78a0b7ef7c07d576da4e73739a8ef9ae50f2881fa19d16fd71a10c3dcbf7107d01f4a09521abbbbfe7a0f82d3aec1acdd455dd67f40127678d86dd6ff2cd90fd10472882e65eb993056c97504b07d223429aa4a864840923999fea001114cf809cadeb956499bb1eea2dea8d194487ab52ac4599046e42293bd4b7a7aad8d9443807f52b42820fa78819c68edcb9758543e850d9265a05d0445ea42cc0890a9f93ed3272b1de24311085a4817c5bddbf901a55a224f84390e9c59e28d863d324325d839aa56f1cfad8131661ddef739c9870ed92ae1ce640193ed6771c7ee2bea13d4dd5db5e88f77d502c628e638d4c89332a15b8106a4b4f1ddfe6a09ba240a502c948b8aaffb53db88221d9fc844817cdf8c591569e4860b18c1b0f83badd3576b54a73255a237f5ab015fda49460d6567664eb96b2d9e30bba949c0f074c14cdab303040e9f9c395d1936fb4870feacd6d2fc7d5a54217d490e3cca23ac48ff6bce0969aca5eca12921eb255f9fa3538b6de390952619bedf3c63b7f69e84dd7516a01455ba1713f6e2612d056456b73b16f6b6ce713477ec00bd46fc72c51645634cb669c648f0f3286abeb05152a79213c7165e27ad201b147f0e7a3aee2cf24fbb0309017f4456aa2c256165f24342ad3e15e9392954940a6587b577aa606eac08b6d823703ffcb0aee43d9387d96aa80b6c64b11d2bd8aaabe6e0f12bb5cc85a32e32968ca5cbc13b6cd3a204122518c5bebf245114cb22523fa79850cc3e7</script>
   <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">输入密码查看文章</span>
+    <div class="hbe hbe-input hbe-input-xray">
+      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">输入密码查看文章</span>
       </label>
+      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
     </div>
   </div>
 </div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://cxw02.github.io">CHENXW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cxw02.github.io/2023/09/27/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">https://cxw02.github.io/2023/09/27/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cxw02.github.io" target="_blank">CHENXW</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/blender/">blender</a></div><div class="post_share"><div class="social-share" data-image="/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/09/25/%E6%AF%8F%E6%97%A5%E5%8D%95%E8%AF%8D/" title="每日单词"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">每日单词</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">CHENXW</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github" style="color: ;"></i></a><a class="social-icon" href="mailto:yg02@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #f93f04;"></i></a><a class="social-icon" href="https://bilibili.com/" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #00aeec;"></i></a><a class="social-icon" href="https://www.douyin.com/" target="_blank" title="Tiktok"><i class="fab fa-tiktok" style="color: ;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content toc-div-class is-expand" style="display:none"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%A9%E4%BD%93%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">物体模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">编辑模式</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: #607D8B"><div id="footer-wrap"><div class="copyright">&copy;2023 By CHENXW</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/instant.page/instantpage.js" type="module"></script><script src="/pluginsSrc/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"></div><script src="/js/textWindow.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://cxw02.github.io">CHENXW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://cxw02.github.io/2023/09/27/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">https://cxw02.github.io/2023/09/27/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cxw02.github.io" target="_blank">CHENXW</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/blender/">blender</a></div><div class="post_share"><div class="social-share" data-image="/img/blender%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/09/25/%E6%AF%8F%E6%97%A5%E5%8D%95%E8%AF%8D/" title="每日单词"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">每日单词</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">CHENXW</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github" style="color: ;"></i></a><a class="social-icon" href="mailto:yg02@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #f93f04;"></i></a><a class="social-icon" href="https://bilibili.com/" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #00aeec;"></i></a><a class="social-icon" href="https://www.douyin.com/" target="_blank" title="Tiktok"><i class="fab fa-tiktok" style="color: ;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content toc-div-class is-expand" style="display:none"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%A9%E4%BD%93%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">物体模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">编辑模式</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: #607D8B"><div id="footer-wrap"><div class="copyright">&copy;2023 By CHENXW</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/instant.page/instantpage.js" type="module"></script><div class="js-pjax"></div><script src="/js/textWindow.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
